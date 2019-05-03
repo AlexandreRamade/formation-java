@@ -92,18 +92,31 @@ public class PizzeriaAdminConsoleApp {
 			questionUser.nextLine();
 			
 			String codePizzaASupprimer = questionUser.nextLine();
-			Pizza[] pizzas3 = new Pizza[pizzas.length - 1];
-			for(int i = 0, j = 0, limite = pizzas.length; i < limite; i++) {
-				if(!pizzas[i].code.equals(codePizzaASupprimer)) {
-					pizzas3[j] = pizzas[i];
-					j++;
+			int indexPizzaASupprimer = -1;
+			for(int i = 0, limite = pizzas.length; i < limite; i++) {
+				if(pizzas[i].code.equals(codePizzaASupprimer)) {
+					indexPizzaASupprimer = i;
+					break;
 				}
 			}
-			pizzas = pizzas3;
-			
+			if(indexPizzaASupprimer != -1) {
+				Pizza[] pizzas3 = new Pizza[pizzas.length - 1];
+				for(int i = 0, j = 0, limite = pizzas.length; i < limite; i++) {
+					if(i != indexPizzaASupprimer) {
+						pizzas3[j] = pizzas[i];
+						j++;
+					}
+				}
+				pizzas = pizzas3;
+			} else {
+				System.out.println("Code pizza invalide !");
+			}
+			break;
+		case 99 :
+			System.out.println("Au revoir !");
 			break;
 		default :
-			System.out.println("Au revoir !");
+			System.out.println("Je ne comprends pas...");
 		}
 		
 		
