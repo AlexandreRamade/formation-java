@@ -29,11 +29,16 @@ public class Marchandise extends MarchandiseType {
 	}
 	
 	public String toString() {
-		String m = "  " + type + " - "+ code + " -> " + nom + " (" + prix + " €) ";
-		for(String valeur : valeurs) {
-			m += valeur + ", ";
+		String msg = "  " + type + " - "+ code + " -> " + nom + " (" + prix + " €) ";
+		int i = 0, lastIndex = libelles.length - 1;
+		for(String str : valeurs) {
+			msg += str;
+			if(i < lastIndex) {
+				msg += ", ";
+			}
+			i++;
 		}
-		return m;
+		return msg;
 	}
 	
 	

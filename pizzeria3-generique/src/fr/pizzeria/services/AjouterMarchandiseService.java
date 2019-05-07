@@ -16,18 +16,30 @@ public class AjouterMarchandiseService extends MenuService {
 		questionUser.nextLine();			
 		String typeNouvelleMarchandise = questionUser.nextLine();
 		
-		MarchandiseType mType;
+		MarchandiseType mType = null;
 		
 		
 		
 		if(pmd.MarchandiseTypeExists(typeNouvelleMarchandise)) {
-			//Afficher la liste des types possibles
+			int index = 0;
+			System.out.println("Quel type souhaitez-vous utiliser ?");
+			for(MarchandiseType mTypePossible : pmd.findMarchandiseTypesByType(typeNouvelleMarchandise)) {
+				System.out.println(index + ". " + mTypePossible.toString());
+				index++;
+			}
+			int indexChoixUser = questionUser.nextInt();
+			if(indexChoixUser <= index) {
+				mType = pmd.findMarchandiseTypesByType(typeNouvelleMarchandise)[indexChoixUser];
+			} else {
+				System.err.println("Je n'ai pas compris !");
+			}
 		} else {
 			System.err.println("Ce type de marchandise n'existe pas. Veuillez le creer avec le menu 5. avant de rentrer des marchandises.");
 		}
 		
 		
 		System.out.println("Veuillez saisir le code :");		
+		questionUser.nextLine();
 		String codeNouvelleMarchandise = questionUser.nextLine();
 		
 		if(pmd.MarchandiseExists(codeNouvelleMarchandise)) {
@@ -38,13 +50,11 @@ public class AjouterMarchandiseService extends MenuService {
 			System.out.println("Veuillez saisir le prix :");
 			Double prixNouvelleMarchandise = questionUser.nextDouble();
 			
-			
-			
-			MarchandiseType mType = pmd.findMarchandiseTypeByCode(codeNouvelleMarchandise);
+			questionUser.nextLine();
 			String[] valeursModifiees = new String[mType.libelles.length];
 			if(valeursModifiees.length > 0) {
 				for(int i = 0, lim = valeursModifiees.length; i < lim; i++) {
-					System.out.println("Entrez le nouveau " + mType.libelles[i]);
+					System.out.println("Entrez la valeur de " + mType.libelles[i]);
 					valeursModifiees[i] = questionUser.nextLine();
 				}
 			}

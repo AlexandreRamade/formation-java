@@ -10,11 +10,7 @@ public class MarchandiseMemDao implements IMarchandiseDao {
 	
 	public MarchandiseMemDao() {
 	}
-	
-	public MarchandiseMemDao(MarchandiseType[] marchandiseTypes) {
-		this.marchandiseTypes = marchandiseTypes;
-	}
-	
+		
 	public MarchandiseMemDao(MarchandiseType[] marchandiseTypes, Marchandise[] tableauInitialDeMarchandise) {
 		this.marchandiseTypes = marchandiseTypes;
 		this.marchandises = tableauInitialDeMarchandise;
@@ -22,7 +18,7 @@ public class MarchandiseMemDao implements IMarchandiseDao {
 	
 	
 	public void saveNewMarchandiseType(MarchandiseType mType) {
-		MarchandiseType[] mTypes2 = new Marchandise[marchandiseTypes.length + 1];
+		MarchandiseType[] mTypes2 = new MarchandiseType[marchandiseTypes.length + 1];
 		for(int i = 0, limite = marchandiseTypes.length; i < limite; i++) {
 			mTypes2[i] = marchandiseTypes[i];
 		}
@@ -51,6 +47,10 @@ public class MarchandiseMemDao implements IMarchandiseDao {
 	@Override
 	public Marchandise[] findAllMarchandises() {
 		return marchandises;
+	}
+	
+	public MarchandiseType[] findAllMarchandiseTypes() {
+		return marchandiseTypes;
 	}
 
 	@Override
@@ -114,7 +114,16 @@ public class MarchandiseMemDao implements IMarchandiseDao {
 	
 	public boolean MarchandiseTypeExists(MarchandiseType mType) {
 		for(int i = 0, limite = marchandiseTypes.length; i < limite; i++) {
-			if(marchandiseTypes[i].type.equals(mType)) {
+			if(marchandiseTypes[i].equals(mType)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean MarchandiseTypeExists(String type) {
+		for(int i = 0, limite = marchandiseTypes.length; i < limite; i++) {
+			if(marchandiseTypes[i].type.equals(type)) {
 				return true;
 			}
 		}

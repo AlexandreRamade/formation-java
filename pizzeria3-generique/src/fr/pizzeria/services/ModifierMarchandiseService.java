@@ -27,6 +27,7 @@ public class ModifierMarchandiseService extends MenuService{
 				System.out.println("Veuillez saisir le nouveau prix :");
 				Double prixModifMarchandise = questionUser.nextDouble();
 				
+				questionUser.nextLine();
 				MarchandiseType mType = pmd.findMarchandiseTypeByCode(codeMarchandiseAModifier);
 				String[] valeursModifiees = new String[mType.libelles.length];
 				if(valeursModifiees.length > 0) {

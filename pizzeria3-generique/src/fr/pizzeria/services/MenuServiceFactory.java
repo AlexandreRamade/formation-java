@@ -13,6 +13,8 @@ public class MenuServiceFactory {
 		case 4 :
 			return new SupprimerMarchandiseService();
 		case 5 :
+			return new ListerMarchandiseTypesService();
+		case 6 :
 			return new AjouterMarchandiseTypeService();
 		default :
 			return null;

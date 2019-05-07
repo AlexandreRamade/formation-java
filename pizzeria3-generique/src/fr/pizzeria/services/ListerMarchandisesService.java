@@ -8,6 +8,7 @@ import fr.pizzeria.persistence.MarchandiseMemDao;
 public class ListerMarchandisesService extends MenuService {
 
 	@Override
+	
 	public void executeUC(MarchandiseMemDao pmd, Scanner questionUser) {
 		System.out.println("Liste des Marchandises :");
 		for(Marchandise marchandise : pmd.findAllMarchandises()) {

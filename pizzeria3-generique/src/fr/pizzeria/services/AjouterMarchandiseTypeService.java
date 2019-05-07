@@ -10,6 +10,7 @@ public class AjouterMarchandiseTypeService extends MenuService {
 	@Override
 	public void executeUC(MarchandiseMemDao pmd, Scanner questionUser) {
 		System.out.println("Entrez le type de marchandise que vous souhaitez lister (sans espace) :");
+		questionUser.nextLine();
 		String typeMarchandise = questionUser.nextLine();
 		System.out.println("En plus des libellés 'code', 'nom' et 'prix', indiquez les informations que vous souhaitez y associer :");
 		System.err.println("Entrez 'stop' lorsque vous avez terminé.");
@@ -17,11 +18,12 @@ public class AjouterMarchandiseTypeService extends MenuService {
 		String[] libelles = new String[0];
 		while(!libelle.toLowerCase().equals("stop")) {
 			libelle = questionUser.nextLine();
-			if (libelle.toLowerCase().equals("stop")) {
+			if (!libelle.toLowerCase().equals("stop")) {
 				String[] libelles2 = new String[libelles.length + 1];
 				for(int i = 0, lim = libelles.length; i < lim; i++) {
 					libelles2[i] = libelles[i];
 				}
+				libelles2[libelles.length] = libelle;
 				libelles = libelles2;
 			}
 		}
