@@ -1,0 +1,10 @@
+
+Integer.MIN_VALUE
+Double.MAX_VALUE
+
+Constructeur d'une Enum doit être private pour éviter qu'il soit appelé depuis l'extérieur !
+
+
+
+
+
