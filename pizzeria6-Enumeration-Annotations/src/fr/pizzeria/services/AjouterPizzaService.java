@@ -27,8 +27,12 @@ public class AjouterPizzaService extends MenuService {
 			
 			CategoriePizza categorie = new ListerChoixCategoriePizzaService().listerChoixCategoriePizza(questionUser);
 			
-			Pizza nouvellePizza = new Pizza(codeNouvellePizza, nomNouvellePizza, prixNouvellePizza, categorie);
-			pmd.saveNewPizza(nouvellePizza);
+			try {
+				Pizza nouvellePizza = new Pizza(codeNouvellePizza, nomNouvellePizza, prixNouvellePizza, categorie);
+				pmd.saveNewPizza(nouvellePizza);
+			} catch (PizzaException e) {
+				System.err.println(e.getMessage());
+			}
 		}
 	}
 	

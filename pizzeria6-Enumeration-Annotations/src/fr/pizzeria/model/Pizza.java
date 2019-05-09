@@ -1,7 +1,10 @@
 package fr.pizzeria.model;
 
+import fr.pizzeria.exception.PizzaException;
+import fr.pizzeria.utils.Rule;
 import fr.pizzeria.utils.StringUtils;
 import fr.pizzeria.utils.ToString;
+import fr.pizzeria.utils.Validator;
 
 public class Pizza {
 	public static int compteurId = 0;
@@ -12,16 +15,18 @@ public class Pizza {
 	@ToString(uppercase = true)
 	public String libelle;
 	@ToString
+	@Rule(min = 0)
 	public double prix;
 	@ToString
 	public CategoriePizza categorie;
 	
-	public Pizza(String code, String libelle, double prix, CategoriePizza categorie) {
+	public Pizza(String code, String libelle, double prix, CategoriePizza categorie) throws PizzaException {
 		this.id = ++compteurId;
 		this.code = code;
 		this.libelle = libelle;
 		this.prix = prix;
 		this.categorie = categorie;
+		Validator.validate(this);
 	}
 	
 	public String toString() {
