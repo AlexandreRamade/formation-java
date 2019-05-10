@@ -4,20 +4,24 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
+import fr.ffc.model.Arbre;
 import fr.ffc.model.Champ;
+import fr.ffc.model.Feuille;
 import fr.ffc.model.FormatFichier;
 import fr.ffc.model.Formats;
 import fr.ffc.model.JsonSynthax;
+import fr.ffc.model.Noeud;
 import fr.ffc.model.Synthax;
 
 public class LireFichier {
 	
 	static private Synthax synthax = new JsonSynthax();
 	static private FormatFichier ff;
-	static private ArrayList<Champ> champsFichier = new ArrayList<Champ>();
+	static private LinkedList<Noeud> lastNoeudsParents = new LinkedList<Noeud>();
+	static private LinkedList<Arbre> noeudsEnfants = new LinkedList<Arbre>();
+	
 	
 	public static void lireAuFormat(FormatFichier formatFichier) {
 		ff = formatFichier;
@@ -57,18 +61,54 @@ public class LireFichier {
 		
 	}
 	
-	private static Champ lireChamp(String line, int ligne) {
-		Champ champ = null;
+	private static void lireChamp(String line, int ligne) {
+		Noeud noeud = null;
 		
-		int nbChamps = 0;
-		if(line.contains(synthax.getChamp())) {
-			nbChamps = line.lastIndexOf(synthax.getChamp()) + 1;
-			System.out.println("line " + ligne + " contain " + nbChamps + " champs");
+		String name = "";
+		String value = "";
+				
+		if(line.contains(synthax.getCorespondance())) {
+			String[] champs = line.split(synthax.getCorespondance());
+			
+			name = champs[0];
+			if(champs[1].contains(synthax.getOuverture())) {
+				lastNoeudsParents.add(new Noeud(lastNoeudsParents.getLast(), name));
+				return;
+			}
+			if(champs.length < 3) {
+				if(champs[1].endsWith(synthax.getSeparator())) {
+					value = champs[1].substring(0, champs[1].length() - 2);
+					noeudsEnfants.add(new Feuille(lastNoeudsParents.getLast(), name, valeur));
+					return;
+				} else {
+					value = champs[1];
+					noeudsEnfants.add(new Feuille(lastNoeudsParents.getLast(), name, valeur));
+					lastNoeudsParents.getLast().setEnfants(noeudsEnfants);
+					noeudsEnfants = new LinkedList<Arbre>();
+					lastNoeudsParents.removeLast();
+					return;
+				}
+			} else { //dans un tableau : prendre en compte les [ et ]
+				for(int i = 1, lim = champs.length; i < lim; i++) {
+					if(i == champs.length - 1) {
+						value = champs[i];
+						noeudsEnfants.add(new Feuille(lastNoeudsParents.getLast(), name, value));
+					} else {
+						String[] valueName = champs[i].split(synthax.getSeparator());
+						value = valueName[0];
+						noeudsEnfants.add(new Feuille(lastNoeudsParents.getLast(), name, value));
+						name = valueName[1];
+					}
+				}
+				
+				if(champs[i].endsWith(synthax.getSeparator())) {
+					
+				}
+				
+			}
+			
+			
 		}
-		
-		String[] nameValue = new String[2];
-		LinkedList<String> namesList = new LinkedList<String>();
-		LinkedList<String> valuesList = new LinkedList<String>();
 		
 		
 	
@@ -110,7 +150,7 @@ public class LireFichier {
 			champ = new Champ(nbChamps, namesList, valuesList);
 		}
 		
-		return champ;
+		return noeud;
 	}
 	
 	

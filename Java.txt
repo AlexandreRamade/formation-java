@@ -5,6 +5,6 @@ Double.MAX_VALUE
 Constructeur d'une Enum doit être private pour éviter qu'il soit appelé depuis l'extérieur !
 
 
-
+une interface hérite avec extends !
 
 
