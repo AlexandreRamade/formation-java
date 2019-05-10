@@ -24,6 +24,18 @@ public class FormatFichier {
 		this.destination = destination;
 	}
 
+	public String toString() {
+		String msg = "Entrée :\n";
+		msg += "   Format : " + inputFormat.toString();
+		msg += "   Adresse : " + origin;
+		msg += "\nSortie :\n";
+		msg += "   Format : " + outputFormat.toString();
+		msg += "   Adresse : " + destination;
+		return msg;
+	}
+	
+	
+	
 	public Formats getInputFormat() {
 		return inputFormat;
 	}

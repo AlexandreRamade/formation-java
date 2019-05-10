@@ -9,7 +9,7 @@ public class SelectFormatUtil {
 	public static final int OUTPUT_FORMAT = 1;
 	
 	
-	public static boolean selectOutputFormat(FormatFichier ff, String formatOption, int typeFormat) {
+	public static boolean selectFormat(FormatFichier ff, String formatOption, int typeFormat) {
 		for(Formats format : Formats.values()) {
 			if(formatOption.equals(format.toString())) {
 				if(typeFormat == INPUT_FORMAT) {

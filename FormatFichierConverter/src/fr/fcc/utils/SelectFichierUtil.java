@@ -11,14 +11,15 @@ import fr.ffc.model.FormatFichier;
 public class SelectFichierUtil {
 	
 	public static boolean selectFichierEtInputFormat(FormatFichier ff, String origin) {
-		try {
+		try {			
 			File f = new File(origin);
 	
 			if(f.exists() && f.isFile()) {
 				ff.setOrigin(origin);
+
+				String extension = f.getName().substring(f.getName().lastIndexOf(".") + 1);
 				
-				String[] fileNameTable = f.getName().split(".");
-				if(SelectFormatUtil.selectOutputFormat(ff, fileNameTable[fileNameTable.length - 1], SelectFormatUtil.INPUT_FORMAT)) {
+				if(SelectFormatUtil.selectFormat(ff, extension, SelectFormatUtil.INPUT_FORMAT)) {
 					return true;
 				}else {
 					throw new FormatException("Le format du fichier n'est pas supporté.");
