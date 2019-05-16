@@ -1,10 +1,14 @@
 
-Integer.MIN_VALUE
-Double.MAX_VALUE
+Utiliser une méthode par défaut d'une interface à partir de la méthode redéfinie dans la classe :
 
-Constructeur d'une Enum doit être private pour éviter qu'il soit appelé depuis l'extérieur !
+class MaClasse implements MonInterface {
+
+   public String maMethode() {
+      return "DaoA" + MonInterface.super.maMethode();
+   }
+}
 
 
-une interface hérite avec extends !
 
-
+.distinct pour éliminer les doublons dans la liste !
+.stream().map(order -> order.getCustomer()).distinct().collect(Collectors.toList());
